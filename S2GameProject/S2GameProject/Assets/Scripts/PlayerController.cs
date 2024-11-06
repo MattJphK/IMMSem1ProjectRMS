@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float movePlayer;
     public float moveSpeed = 15.0f;
     public GameObject bear;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(-135, transform.position.y, transform.position.z);
         }
+
 
     }
      private void OnCollisionEnter(Collision collision)
