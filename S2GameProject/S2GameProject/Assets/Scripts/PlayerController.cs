@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float movePlayer;
     public float moveSpeed = 15.0f;
     public GameObject bear;
+    public bool hasJPowerUp;//for JumpPowerUp
+    private float PowerJumpStrength = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,12 @@ public class PlayerController : MonoBehaviour
             bearRb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             standing = false;
         }
+        else if(Input.GetKeyDown(KeyCode.Space) && hasJPowerUp && standing)
+        {
+            
+            bearRb.AddForce(Vector3.up * JumpForce * PowerJumpStrength, ForceMode.Impulse);
+            standing = false;
+        }
         //stops you from going off screen by stopping going past position.x = -135
         if(transform.position.x < -135)
         {
@@ -43,13 +51,34 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    //identifies when players on the ground
      private void OnCollisionEnter(Collision collision)
      {
         standing = true;
      }
-
+    //sets player position
      void PlayerStartPos()
      {
         bear.transform.position = new Vector3(-147, -25, -20);
      }
+    //identifies when the player hits a PowerUp
+     private void OnTriggerEnter(Collider other)
+     {
+        if(other.CompareTag("JumpPowerUp"))
+        {
+            hasJPowerUp = true;
+            Destroy(other.gameObject);
+            Debug.Log("HasJPUP");
+            StartCoroutine(PowerUpTimeLimit());
+        }
+     }
+
+     IEnumerator PowerUpTimeLimit()
+     {
+        yield return new WaitForSeconds(9);
+        hasJPowerUp = false;
+        Debug.Log("PowerUp Gone");
+     }
+
+
 }
