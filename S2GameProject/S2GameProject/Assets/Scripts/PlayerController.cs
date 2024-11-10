@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     //sets player position
      void PlayerStartPos()
      {
-        bear.transform.position = new Vector3(-147, -32, -22);
+        bear.transform.position = new Vector3(-147, 0, -22);
      }
     //identifies when the player hits a PowerUp
      private void OnTriggerEnter(Collider other)
