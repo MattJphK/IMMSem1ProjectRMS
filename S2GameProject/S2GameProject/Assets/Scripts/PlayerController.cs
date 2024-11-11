@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 15.0f;
     public GameObject bear;
     public bool hasJPowerUp;//for JumpPowerUp
-    private float PowerJumpStrength = 3;
+    //private float PowerJumpStrength = 3.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,18 +31,20 @@ public class PlayerController : MonoBehaviour
         moveForward.z = 0;//Stops the player from moving on the z axis e.g towards the wall as you move forward
         transform.Translate(moveForward,Space.World);
         
+        
         //Jumps when space is pushed
         if(Input.GetKeyDown(KeyCode.Space) && standing)
         {
-            bearRb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            standing = false;
+            Jump();//calls jump method
+            if(hasJPowerUp)
+            {
+                SuperJump();
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.Space) && hasJPowerUp && standing)
+        /*else if(Input.GetKeyDown(KeyCode.Space) && hasJPowerUp && standing)
         {
-            
-            bearRb.AddForce(Vector3.up * JumpForce * PowerJumpStrength, ForceMode.Impulse);
-            standing = false;
-        }
+            SuperJump();
+        }*/
         //stops you from going off screen by stopping going past position.x = -135
         if(transform.position.x < -135)
         {
@@ -69,16 +71,26 @@ public class PlayerController : MonoBehaviour
             hasJPowerUp = true;
             Destroy(other.gameObject);
             Debug.Log("HasJPUP");
-            StartCoroutine(PowerUpTimeLimit());
+            //StartCoroutine(PowerUpTimeLimit());
         }
      }
 
-     IEnumerator PowerUpTimeLimit()
+     private void Jump(){
+        bearRb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+        standing = false;
+     }
+
+     private void SuperJump(){
+        bearRb.AddForce(Vector3.up * JumpForce * 2, ForceMode.Impulse);
+        standing = false;
+     }
+
+     /*IEnumerator PowerUpTimeLimit()
      {
         yield return new WaitForSeconds(9);
         hasJPowerUp = false;
         Debug.Log("PowerUp Gone");
-     }
+     }*/
 
 
 }

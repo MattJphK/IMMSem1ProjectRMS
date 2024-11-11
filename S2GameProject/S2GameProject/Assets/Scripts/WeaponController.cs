@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public GameObject bulletPrefab;
+    public bool hasBPowerUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,4 +20,5 @@ public class WeaponController : MonoBehaviour
             Instantiate(bulletPrefab, transform.position, bulletPrefab.transform.rotation);
         }
     }
+    
 }

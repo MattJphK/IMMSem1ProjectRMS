@@ -22,9 +22,9 @@ public class SpawnManager : MonoBehaviour
     {
         enemyNum = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if(enemyNum == 1)
+        if(enemyNum == 0)
         {
-            void SpawnEnemies();
+            SpawnEnemies();
         }
     }
 

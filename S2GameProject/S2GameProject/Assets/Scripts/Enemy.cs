@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 20.0f;
+    public float speed = 40.0f;
     private Rigidbody enemyRb;
     private GameObject baerTarget;
 
@@ -21,14 +21,21 @@ public class Enemy : MonoBehaviour
     {
         Vector3 chasePath = (baerTarget.transform.position - transform.position).normalized;
         enemyRb.AddForce(chasePath * speed, ForceMode.Impulse); 
+
+        if(transform.position.x < -253)
+        {
+            Destroy(gameObject);
+            Debug.Log("Enemy reached bounds");
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         // If enemy collides with either goal, destroy it
-        if (other.gameObject.name == "Bullet")
+        if (other.gameObject.CompareTag("Bullet"))
         {
             Destroy(gameObject);
+            Destroy(other.gameObject);
             Debug.Log("hit skel");
         } 
         else if (other.gameObject.name == "Player")
