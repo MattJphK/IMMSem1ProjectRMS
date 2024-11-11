@@ -5,16 +5,20 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject jumpPowerUpPrefab;
     private float spawnMinX = 50;
     private float spawnMaxX = 250;
     private float spawnZ = -22; // set min spawn Z
     public int enemyNum;
+    public bool stopSpawn;
+    private float enemiesKilled;
+    
    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       stopSpawn = false; 
     }
 
     // Update is called once per frame
@@ -22,10 +26,11 @@ public class SpawnManager : MonoBehaviour
     {
         enemyNum = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-        if(enemyNum == 0)
+        if(enemyNum == 0 && stopSpawn == false)
         {
             SpawnEnemies();
         }
+        
     }
 
     Vector3 GenerateSpawnPosition()
@@ -38,4 +43,6 @@ public class SpawnManager : MonoBehaviour
     {
         Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
     }
+
+
 }

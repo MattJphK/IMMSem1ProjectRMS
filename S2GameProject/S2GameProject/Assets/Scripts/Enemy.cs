@@ -7,12 +7,14 @@ public class Enemy : MonoBehaviour
     public float speed = 40.0f;
     private Rigidbody enemyRb;
     private GameObject baerTarget;
+    private static float enemiesKilled;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         baerTarget = GameObject.FindGameObjectWithTag("Player"); //chase the player
+        
 
     }
 
@@ -20,12 +22,17 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Vector3 chasePath = (baerTarget.transform.position - transform.position).normalized;
-        enemyRb.AddForce(chasePath * speed, ForceMode.Impulse); 
-
+        //enemyRb.AddForce(chasePath * speed, ForceMode.Impulse); 
+        //isn't working so I changed it
+        enemyRb.MovePosition(transform.position + chasePath * speed * Time.deltaTime);//change to MovePosition addforce suddenly stopped working
         if(transform.position.x < -253)
         {
             Destroy(gameObject);
             Debug.Log("Enemy reached bounds");
+        }
+        if(enemiesKilled == 10)
+        {
+           Debug.Log("You Won");
         }
     }
 
@@ -36,12 +43,15 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
-            Debug.Log("hit skel");
+            enemiesKilled = enemiesKilled + 1;
+            Debug.Log("enemies killed "+enemiesKilled);
         } 
         else if (other.gameObject.name == "Player")
         {
-            Destroy(other.gameObject);
             Debug.Log("GAME OVER!!!");
+            Destroy(other.gameObject);
+
+            
         }
 
     }

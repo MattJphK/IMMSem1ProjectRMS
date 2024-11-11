@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 15.0f;
     public GameObject bear;
     public bool hasJPowerUp;//for JumpPowerUp
-    //private float PowerJumpStrength = 3.0f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -26,12 +26,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer =Input.GetAxis("Horizontal");
-        Vector3 moveForward = Vector3.right * movePlayer * Time.deltaTime * moveSpeed; //the Vector3 for the player as a Variable
-        moveForward.z = 0;//Stops the player from moving on the z axis e.g towards the wall as you move forward
-        transform.Translate(moveForward,Space.World);
-        
-        
+        PlayerMoveset();
+
         //Jumps when space is pushed
         if(Input.GetKeyDown(KeyCode.Space) && standing)
         {
@@ -41,10 +37,6 @@ public class PlayerController : MonoBehaviour
                 SuperJump();
             }
         }
-        /*else if(Input.GetKeyDown(KeyCode.Space) && hasJPowerUp && standing)
-        {
-            SuperJump();
-        }*/
         //stops you from going off screen by stopping going past position.x = -135
         if(transform.position.x < -135)
         {
@@ -71,8 +63,16 @@ public class PlayerController : MonoBehaviour
             hasJPowerUp = true;
             Destroy(other.gameObject);
             Debug.Log("HasJPUP");
-            //StartCoroutine(PowerUpTimeLimit());
+            StartCoroutine(PowerUpTimeLimit());
         }
+     }
+
+     private void PlayerMoveset()
+     {
+        movePlayer =Input.GetAxis("Horizontal");
+        Vector3 moveForward = Vector3.right * movePlayer * Time.deltaTime * moveSpeed; //the Vector3 for the player as a Variable
+        moveForward.z = 0;//Stops the player from moving on the z axis e.g towards the wall as you move forward
+        transform.Translate(moveForward,Space.World);
      }
 
      private void Jump(){
@@ -85,12 +85,12 @@ public class PlayerController : MonoBehaviour
         standing = false;
      }
 
-     /*IEnumerator PowerUpTimeLimit()
+     IEnumerator PowerUpTimeLimit()
      {
         yield return new WaitForSeconds(9);
         hasJPowerUp = false;
         Debug.Log("PowerUp Gone");
-     }*/
+     }
 
 
 }

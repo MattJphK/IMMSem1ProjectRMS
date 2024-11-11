@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public bool hasBPowerUp;
+    public float bulletLimit = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +15,11 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X))//gets the x key input to fire bullets
+        bulletLimit -= 0.1f;
+        if(Input.GetKeyDown(KeyCode.X) && bulletLimit <= 0.0f)//gets the x key input to fire bullets
         {
             Instantiate(bulletPrefab, transform.position, bulletPrefab.transform.rotation);
+            bulletLimit = 5.0f;
         }
     }
     
