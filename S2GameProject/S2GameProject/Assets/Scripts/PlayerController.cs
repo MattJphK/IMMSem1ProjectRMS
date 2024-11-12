@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody bearRb; //player physics e.g mass
     public float JumpForce; //decideds the power of the players jump
+
+    private float turnSpeed = 500f;
     public float gravityModifier; //allows us to modify gravity mechanics 
     public bool standing; //tells us if the player is on the ground
     public float movePlayer;
@@ -73,6 +75,21 @@ public class PlayerController : MonoBehaviour
         Vector3 moveForward = Vector3.right * movePlayer * Time.deltaTime * moveSpeed; //the Vector3 for the player as a Variable
         moveForward.z = 0;//Stops the player from moving on the z axis e.g towards the wall as you move forward
         transform.Translate(moveForward,Space.World);
+        TurnPlayer();
+     }
+
+     private void TurnPlayer()
+     {
+
+       if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+      {
+        transform.eulerAngles = new Vector3(0, -90, 0);
+      }
+    // Check if Right Arrow or D is held down and rotate right
+      else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+      {   
+          transform.eulerAngles = new Vector3(0, 90, 0);
+      }
      }
 
      private void Jump(){
