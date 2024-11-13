@@ -45,6 +45,20 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-135, transform.position.y, transform.position.z);
         }
 
+        else if(transform.position.x > 223)
+        {
+            transform.position = new Vector3(223, transform.position.y, transform.position.z);
+        }
+
+
+        if(transform.position.y > 55)
+        {
+            transform.position = new Vector3(transform.position.x, 55, transform.position.z);
+
+            // Stop upward movement to prevent further attempts to go higher
+            bearRb.velocity = new Vector3(bearRb.velocity.x, 0, bearRb.velocity.z);
+        }
+
 
     }
     //identifies when players on the ground
@@ -55,7 +69,7 @@ public class PlayerController : MonoBehaviour
     //sets player position
      void PlayerStartPos()
      {
-        bear.transform.position = new Vector3(-102, 0, -22);
+        bear.transform.position = new Vector3(-102, 1, -22);
      }
     //identifies when the player hits a PowerUp
      private void OnTriggerEnter(Collider other)
@@ -108,6 +122,4 @@ public class PlayerController : MonoBehaviour
         hasJPowerUp = false;
         Debug.Log("PowerUp Gone");
      }
-
-
 }

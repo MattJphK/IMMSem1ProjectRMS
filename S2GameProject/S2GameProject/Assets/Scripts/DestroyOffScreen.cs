@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroyOffScreen : MonoBehaviour
 {
     private float offScreen = 310;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,5 +19,11 @@ public class DestroyOffScreen : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("Bullet Destroyed");
         }
+
+        else if(transform.position.x < -offScreen){
+            Destroy(gameObject);
+            Debug.Log("Bullet Destroyed");
+        }
+        
     }
 }
