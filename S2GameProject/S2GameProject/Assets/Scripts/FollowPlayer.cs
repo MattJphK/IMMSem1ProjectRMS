@@ -5,7 +5,6 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public GameObject bear;
-    public Vector3 offset = new Vector3(-71, 3, -82);
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +14,7 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       transform.position = bear.transform.position + new Vector3(25,30,-55);
+       transform.position = bear.transform.position + new Vector3(25,50,-75);//set to look best in webgl
 
        
     }

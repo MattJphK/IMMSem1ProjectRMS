@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("Enemy reached bounds");
         }
-        if(enemiesKilled == 10)
+        if(enemiesKilled == 11)
         {
            Debug.Log("You Won");
         }
