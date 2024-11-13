@@ -8,7 +8,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject jumpPowerUpPrefab;
     public GameObject bearPlayer;
     private float spawnMinX = 50;
-    private float spawnMaxX = 250;
+    private float spawnMaxX = 200;
     private float spawnZ = -22; // set min spawn Z
     public int enemyNum;//keeps track of the enemies currently in the game
     public int powerUpNum;//keeps track of the enemies currently in the game

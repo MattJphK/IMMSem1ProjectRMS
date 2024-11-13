@@ -1,26 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
     public float speed = 40.0f;
     private Rigidbody enemyRb;
     private GameObject baerTarget;
-    public static float enemiesKilled;//static used so the prefabs are included in the count
+    public static int enemiesKilled = 0;//static used so the prefabs are included in the count
+    public TextMeshProUGUI killText;
+    private UIManger uIManger;
 
     // Start is called before the first frame update
     void Start()
     {
+        uIManger = GameObject.Find("UI Manager").GetComponent<UIManger>();
         enemyRb = GetComponent<Rigidbody>();
         baerTarget = GameObject.FindGameObjectWithTag("Player"); //chase the player
         
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         Vector3 chasePath = (baerTarget.transform.position - transform.position).normalized;
         //enemyRb.AddForce(chasePath * speed, ForceMode.Impulse); 
         //isn't working so I changed it
@@ -43,7 +47,8 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(other.gameObject);
-            enemiesKilled = enemiesKilled + 1;
+            uIManger.UpdateKill(enemiesKilled);
+            enemiesKilled += 1;
             Debug.Log("enemies killed "+enemiesKilled);
         } 
         else if (other.gameObject.name == "Player")
