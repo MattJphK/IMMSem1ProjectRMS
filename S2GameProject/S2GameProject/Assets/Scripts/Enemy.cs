@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed = 40.0f;
     private Rigidbody enemyRb;
     private GameObject baerTarget;
-    private static float enemiesKilled;
+    public static float enemiesKilled;//static used so the prefabs are included in the count
 
     // Start is called before the first frame update
     void Start()

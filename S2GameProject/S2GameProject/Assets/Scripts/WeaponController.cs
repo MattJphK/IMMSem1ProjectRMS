@@ -15,7 +15,7 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bulletLimit -= 0.1f;
+        bulletLimit = bulletLimit - 0.1f;
         if(Input.GetKeyDown(KeyCode.X) && bulletLimit <= 0.0f)//gets the x key input to fire bullets
         {
             Instantiate(bulletPrefab, transform.position, bulletPrefab.transform.rotation);
