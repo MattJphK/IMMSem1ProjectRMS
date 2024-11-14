@@ -21,8 +21,11 @@ public class UIManger : MonoBehaviour
     public void UpdateKill(int totalKills)
     {
         totalKills += 1;
-        killText.text = "KILLS: " + totalKills;
-        if(totalKills == 11)
+        while(totalKills < 10)
+        {
+            killText.text = "KILLS: " + totalKills;
+        }
+        if(totalKills == 10)
         {
             killText.text = "YOU WIN";
         }
